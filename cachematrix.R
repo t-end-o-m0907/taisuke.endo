@@ -1,12 +1,12 @@
-## Put comments here that give an overall description of what your
-## functions do
-
 ## make function list from matrix
+
+###library(MASS)
+
 makeCacheMatrix <- function(x = matrix()) {
         s <- NULL
         set <- function(y) {
                 x <<- y
-                m <<- NULL
+                s <<- NULL
         }
         get <- function() x
         setinv <- function(solve) s <<- solve
@@ -16,6 +16,8 @@ makeCacheMatrix <- function(x = matrix()) {
 
 
 ## calculate inverse matrix using makeCashMatrix
+### if the diemnsion of matrix is higher than 2, use ginv().
+
 cacheSolve <- function(x, ...) {
         s <- x$getinv
         if(!is.null(s)) {
@@ -23,7 +25,8 @@ cacheSolve <- function(x, ...) {
                 return(s)
         }
         data <- x$get()
-        m <- solve(data, ...)
+        s <- solve(data, ...)
+        #s <- ginv(data, ...)
         x$setinv(s)
         s
 }
